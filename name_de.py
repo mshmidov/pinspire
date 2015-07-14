@@ -6,13 +6,13 @@ __author__ = 'mshmidov'
 
 from table.markov_table import MarkovTable
 
-NAME_M_DE = MarkovTable(["seed/name_m_de.txt"],
+NAME_M_DE = MarkovTable(["seed/name_m_de.txt", "seed/name_m_de_prussian.txt", "seed/name_m_de_silesian.txt"],
                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
-NAME_F_DE = MarkovTable(["seed/name_f_de.txt"],
+NAME_F_DE = MarkovTable(["seed/name_f_de.txt", "seed/name_f_de_prussian.txt", "seed/name_f_de_silesian.txt"],
                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
-SURNAME_DE = MarkovTable(["seed/surname_de.txt"],
+SURNAME_DE = MarkovTable(["seed/surname_de.txt", "seed/surname_de_prussian.txt", "seed/surname_de_silesian.txt"],
                          key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
 
