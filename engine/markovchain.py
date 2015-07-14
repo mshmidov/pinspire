@@ -3,7 +3,7 @@ import itertools
 
 
 class MarkovChain(object):
-    def __init__(self, key_size=3, terminator=None):
+    def __init__(self, key_size=3, terminator=None, backoff=False):
         if key_size < 1:
             raise ValueError("key size cannot be less than 1 element")
 
@@ -11,6 +11,7 @@ class MarkovChain(object):
         self._terminator = terminator
         self._elements = {}
         self._keys = []
+        self._lower_order_chain = MarkovChain(key_size - 1, terminator) if backoff and key_size > 2 else None
 
     @property
     def terminator(self):
@@ -25,6 +26,8 @@ class MarkovChain(object):
         return self._key_size
 
     def populate(self, elements):
+        if self._lower_order_chain is not None:
+            self._lower_order_chain.populate(elements)
 
         key_size = self.key_size
 
@@ -53,7 +56,12 @@ class MarkovChain(object):
         return random.choice(self._keys)
 
     def next_element(self, key):
-        return random.choice(self._elements[key]) if key in self._elements else self._terminator
+        if key in self._elements:
+            return random.choice(self._elements[key])
+        elif self._lower_order_chain is not None:
+            return self._lower_order_chain.next_element(key)
+        else:
+            return self._terminator
 
     def elements(self, key=None, limit=10):
 
