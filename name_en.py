@@ -6,25 +6,25 @@ __author__ = 'mshmidov'
 
 from table.markov_table import MarkovTable
 
-NAME_M_DE = MarkovTable(["seed/name_m_de.txt"],
+NAME_M_EN = MarkovTable(["seed/name_m_en.txt"],
                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
-NAME_F_DE = MarkovTable(["seed/name_f_de.txt"],
+NAME_F_EN = MarkovTable(["seed/name_f_en.txt"],
                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
-SURNAME_DE = MarkovTable(["seed/surname_de.txt"],
+SURNAME_EN = MarkovTable(["seed/surname_en.txt"],
                          key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
 
 
-def german_name(male=True):
-    name_chain = NAME_M_DE if male else NAME_F_DE
+def english_name(male=True):
+    name_chain = NAME_M_EN if male else NAME_F_EN
 
     name = []
 
     for i in range(random.randint(1, 3)):
         name.append(name_chain.roll())
 
-    name.append(SURNAME_DE.roll())
+    name.append(SURNAME_EN.roll())
 
     return " ".join(name)
 
@@ -32,4 +32,4 @@ def german_name(male=True):
 if __name__ == '__main__':
     female = len(sys.argv) > 1 and sys.argv[1] == '-f'
 
-    print(german_name(not female))
+    print(english_name(not female))
