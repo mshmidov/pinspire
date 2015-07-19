@@ -11,12 +11,20 @@ def is_not_empty(s) -> bool:
     return s is not None and not s.isspace() and not s == ''
 
 
-def extract_names(name_tags, filter_function):
+def extract_names(name_tags, filter_function, first_only=False):
+    expression = r'[\w-]+'
+
+    if first_only:
+        expression = '^' + expression
+
     return (name.title() for name in
             (itertools.chain.from_iterable(
-                re.findall(r"[\w]+", name.string) for name in name_tags
-                if is_not_empty(name.string)))
-            if filter_function(name))
+                re.findall(expression, name.string) for name in name_tags if is_not_empty(name.string)))
+            if filter_function(name)
+            and len(name) > 1
+            and name[0].isupper()
+            and not name.endswith("-")
+            and not name.startswith("-"))
 
 
 def write_sorted(names, path, filename):
@@ -48,17 +56,17 @@ def load_names(page, path, filename):
     write_sorted(female_names, path, filename.format('names', 'f'))
 
 
-def load_names_from_tables(page, male_table, female_table, path, filename):
+def load_names_from_tables(page, male_table, female_table, path, filename, first_only=False):
     response = requests.get(page)
     soup = BeautifulSoup(response.text, 'lxml')
 
     for i, table in enumerate(soup.find_all('table')):
         if i == male_table:
-            names = extract_names(table.find_all('td'), not_latin)
+            names = extract_names(table.find_all('td'), not_latin, first_only=first_only)
             write_sorted(names, path, filename.format('names', 'm'))
 
         elif i == female_table:
-            names = extract_names(table.find_all('td'), not_latin)
+            names = extract_names(table.find_all('td'), not_latin, first_only=first_only)
             write_sorted(names, path, filename.format('names', 'f'))
 
 
@@ -170,10 +178,10 @@ load_surnames('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Surnames.
 # basques
 
 load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Male.html', 0, -1,
-                       '../seed/europe/', '{}-basque-{}')
+                       '../seed/europe/', '{}-basque-{}', first_only=True)
 
 load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Female.html', -1, 0,
-                       '../seed/europe/', '{}-basque-{}')
+                       '../seed/europe/', '{}-basque-{}', first_only=True)
 
 load_surnames('http://tekeli.li/onomastikon/Europe-Western/Basque/Surnames.html',
               '../seed/europe/', '{}-basque')
@@ -234,6 +242,9 @@ load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Faroes/Surnames.h
 
 load_names('http://tekeli.li/onomastikon/Europe-Scandinavia/Finland/Finnish.html',
            '../seed/scandinavia/', '{}-finland-finnish-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Finland/Compounds.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-finland-compounds-{}')
 
 load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Finland/Surnames.html',
               '../seed/scandinavia/', '{}-finland')

@@ -22,7 +22,6 @@ Boukje
 Brechtje
 Dever
 Diene
-Dim
 Dirtje
 Eimde
 Ejte
@@ -81,9 +80,7 @@ Mientje
 Mina
 Moder
 Moderte
-Names
 Ockje
-Of
 Olligtie
 Peta
 Petje
@@ -109,7 +106,6 @@ Sofie
 Stientje
 Stina
 Sunna
-Swan
 Swantje
 Tatje
 Tede
@@ -130,7 +126,6 @@ Wendel
 Wibke
 Wiemda
 Wilmke
-With
 Wocbke
 Wubcke
 Wumke

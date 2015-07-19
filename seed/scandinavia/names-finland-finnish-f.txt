@@ -9,7 +9,6 @@ Aino
 Aira
 Airi
 Alli
-Angel
 Ansa
 Arja
 Armi
@@ -25,9 +24,7 @@ Eira
 Enni
 Erja
 Erkka
-Faith
 Finland
-Flower
 Heini
 Hellevi
 Helmi
@@ -39,7 +36,6 @@ Hilla
 Hille
 Hillevi
 Hilma
-Hope
 Ilma
 Ilmatar
 Ilmi
@@ -63,7 +59,6 @@ Lahja
 Laina
 Lemmikki
 Lempi
-Love
 Lumi
 Lumikki
 Lyyli
@@ -145,7 +140,6 @@ Sirkka
 Sirkku
 Sirpa
 Sisko
-Sister
 Sivi
 Sohvi
 Soila

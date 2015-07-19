@@ -23,7 +23,6 @@ Alyaume
 Amalric
 Amalvis
 Amanieu
-Ami
 Amigart
 Araimfres
 Arbert
@@ -41,7 +40,7 @@ Baut
 Biche
 Billebaut
 Bochard
-Bon
+Bon-Ami
 Bouchard
 Burnel
 Buselin

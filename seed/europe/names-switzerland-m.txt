@@ -23,7 +23,7 @@ Frankl
 Franz
 Guido
 Hannes
-Hans
+Hans-Ruedi
 Heinz
 Herman
 Juerg
@@ -44,7 +44,6 @@ Pirmin
 Reno
 Reto
 Rodolphe
-Ruedi
 Stephane
 Timo
 Ueli

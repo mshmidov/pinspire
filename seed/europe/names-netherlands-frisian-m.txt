@@ -46,7 +46,6 @@ Foke
 Folkert
 Freert
 Frerich
-From
 Garbrand
 Garrelt
 Garrit
@@ -122,11 +121,9 @@ Menke
 Menne
 Mennte
 Mimke
-Names
 Nanno
 Ocke
 Odo
-Of
 Oltmann
 Onke
 Onne
@@ -134,7 +131,6 @@ Onno
 Onntje
 Ottig
 Otto
-Pet
 Poppe
 Poppens
 Pupt
@@ -149,7 +145,6 @@ Sede
 Seven
 Siebrand
 Siefke
-Sig
 Sikke
 Sjamme
 Soke
