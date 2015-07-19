@@ -22,7 +22,6 @@ Amalie
 Amelia
 Amelie
 Amilia
-And
 Anselma
 Anselme
 Arnhilda
@@ -239,7 +238,6 @@ Ulrike
 Uta
 Ute
 Valtraud
-Variants
 Vaubourg
 Walburg
 Walpurgis
