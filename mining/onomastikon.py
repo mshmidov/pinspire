@@ -153,3 +153,12 @@ load_names('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Friesland.ht
 
 load_surnames('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Surnames.html',
               '../seed/europe/', '{}-netherlands')
+
+load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Male.html', 0, -1,
+                       '../seed/europe/', '{}-basque-{}')
+
+load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Female.html', -1, 0,
+                       '../seed/europe/', '{}-basque-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Western/Basque/Surnames.html',
+              '../seed/europe/', '{}-basque')
