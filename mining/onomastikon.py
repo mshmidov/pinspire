@@ -55,6 +55,22 @@ def load_names_from_tables(page, male_table, female_table, path, filename):
             write_sorted(names, path, filename.format('names', 'f'))
 
 
+def load_names_from_table_first_columns(page, male_table, female_table, path, filename):
+    response = requests.get(page)
+    soup = BeautifulSoup(response.text, 'lxml')
+
+    for i, table in enumerate(soup.find_all('table')):
+        if i == male_table:
+            names = itertools.chain.from_iterable(
+                extract_names(row.find('td'), lambda n: (not n.endswith("us"))) for row in table.find_all('tr'))
+            write_sorted(names, path, filename.format('names', 'm'))
+
+        elif i == female_table:
+            names = itertools.chain.from_iterable(
+                extract_names(row.find('td'), lambda n: (not n.endswith("us"))) for row in table.find_all('tr'))
+            write_sorted(names, path, filename.format('names', 'f'))
+
+
 def load_surnames(page, path, filename):
     response = requests.get(page)
     soup = BeautifulSoup(response.text, 'lxml')
@@ -108,3 +124,9 @@ load_names('http://tekeli.li/onomastikon/Europe-Medieval/Italy.html',
 
 load_names('http://tekeli.li/onomastikon/Europe-Medieval/France.html',
            '../seed/europe/', '{}-medieval-france-{}')
+
+load_names('http://tekeli.li/onomastikon/Europe-Western/Germany/Low-German.html',
+           '../seed/europe/', '{}-low-german-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Germany/Germanic.html', 0, 1,
+                                    '../seed/europe/', '{}-germanic-{}')
