@@ -93,3 +93,18 @@ load_surnames('http://tekeli.li/onomastikon/England-Surnames/Byname.html',
 
 load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Franks.html', 0, 1,
                        '../seed/europe/', '{}-medieval-franks-{}')
+
+load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Lombards.html', 0, 1,
+                       '../seed/europe/', '{}-medieval-lombards-{}')
+
+load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Goths.html', 0, 1,
+                       '../seed/europe/', '{}-medieval-goths-{}')
+
+load_names('http://tekeli.li/onomastikon/Europe-Medieval/Germany.html',
+           '../seed/europe/', '{}-medieval-germany-{}')
+
+load_names('http://tekeli.li/onomastikon/Europe-Medieval/Italy.html',
+           '../seed/europe/', '{}-medieval-italy-{}')
+
+load_names('http://tekeli.li/onomastikon/Europe-Medieval/France.html',
+           '../seed/europe/', '{}-medieval-france-{}')
