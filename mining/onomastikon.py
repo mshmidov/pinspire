@@ -6,31 +6,49 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def is_not_empty(s):
+    return s is not None and not s.isspace() and not s == ''
+
+
+def extract_names(name_tags, filter_function):
+    return (name.title() for name in
+            (itertools.chain.from_iterable(
+                re.findall(r"[\w]+", name.string) for name in name_tags
+                if is_not_empty(name.string)))
+            if filter_function(name))
+
+
+def write_sorted(names, filename):
+    output = open(filename, 'w')
+    for name in sorted(list(set(names))):
+        output.write(name + '\n')
+
+
 def load_names(page, filename):
     response = requests.get(page)
     soup = BeautifulSoup(response.text, 'lxml')
 
     female_header = next(header for header in soup.find_all('h3') if str(header.string).startswith('Female'))
 
-    male_names = (name.title() for name in
-                  (itertools.chain.from_iterable(
-                      re.findall(r"[\w]+", name.string) for name in reversed(female_header.find_all_previous('td'))
-                      if is_not_empty(name.string)))
-                  if not name.endswith("us"))
+    male_names = extract_names(female_header.find_all_previous('td'), lambda n: (not n.endswith("us")))
+    female_names = extract_names(female_header.find_all_next('td'), lambda n: (not n.endswith("us")))
 
-    female_names = (name.title() for name in
-                    (itertools.chain.from_iterable(
-                        re.findall(r"[\w]+", name.string) for name in female_header.find_all_next('td')
-                        if is_not_empty(name.string)))
-                    if not name.endswith("us"))
+    write_sorted(male_names, filename.format('m'))
+    write_sorted(female_names, filename.format('f'))
 
-    output_m = open(filename.format('m'), 'w')
-    for name in sorted(list(set(male_names))):
-        output_m.write(name + '\n')
 
-    output_f = open(filename.format('f'), 'w')
-    for name in sorted(list(set(female_names))):
-        output_f.write(name + '\n')
+def load_names_from_tables(page, male_table, female_table, filename):
+    response = requests.get(page)
+    soup = BeautifulSoup(response.text, 'lxml')
+
+    for i, table in enumerate(soup.find_all('table')):
+        if i == male_table:
+            names = extract_names(table.find_all('td'), lambda n: (not n.endswith("us")))
+            write_sorted(names, filename.format('m'))
+
+        elif i == female_table:
+            names = extract_names(table.find_all('td'), lambda n: (not n.endswith("us")))
+            write_sorted(names, filename.format('f'))
 
 
 def load_surnames(page, filename):
@@ -39,13 +57,7 @@ def load_surnames(page, filename):
 
     surnames = (name.string.strip().split()[0].title() for name in soup.find_all('td') if is_not_empty(name.string))
 
-    output = open(filename.format('surnames'), 'w')
-    for name in sorted(list(set(surnames))):
-        output.write(name + '\n')
-
-
-def is_not_empty(s):
-    return s is not None and not s.isspace() and not s == ''
+    write_sorted(surnames, filename.format('surnames'))
 
 
 load_names('http://tekeli.li/onomastikon/England-Medieval/Norman.html',
@@ -74,3 +86,6 @@ load_surnames('http://tekeli.li/onomastikon/England-Surnames/Tradenames.html',
 
 load_surnames('http://tekeli.li/onomastikon/England-Surnames/Byname.html',
               '../seed/england/byname-{}.txt')
+
+load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Franks.html', 0, 1,
+                       '../seed/europe/medieval-franks-{}.txt')
