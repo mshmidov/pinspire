@@ -80,53 +80,59 @@ def load_surnames(page, path, filename):
     write_sorted(surnames, path, filename.format('surnames'))
 
 
-load_names('http://tekeli.li/onomastikon/England-Medieval/Norman.html',
-           '../seed/england/', '{}-medieval-norman-{}')
+# load_names('http://tekeli.li/onomastikon/England-Medieval/Norman.html',
+#            '../seed/england/', '{}-medieval-norman-{}')
+#
+# load_names('http://tekeli.li/onomastikon/England-Saxon/Dithematic.html',
+#            '../seed/england/', '{}-medieval-saxon-dithematic-{}')
+#
+# load_names('http://tekeli.li/onomastikon/England-Saxon/Monothematic.html',
+#            '../seed/england/', '{}-medieval-saxon-monothematic-{}')
+#
+# load_names('http://tekeli.li/onomastikon/England-Medieval/Norse.html',
+#            '../seed/england/', '{}-medieval-norse-{}')
+#
+# load_names('http://tekeli.li/onomastikon/England-Medieval/Saxon.html',
+#            '../seed/england/', '{}-medieval-saxon-{}')
+#
+# load_names('http://tekeli.li/onomastikon/England-Medieval/Rarities.html',
+#            '../seed/england/', '{}-medieval-rarities-{}')
+#
+# load_surnames('http://tekeli.li/onomastikon/England-Surnames/Old-English.html',
+#               '../seed/england/', '{}-old-english')
+#
+# load_surnames('http://tekeli.li/onomastikon/England-Surnames/Tradenames.html',
+#               '../seed/england/', '{}-trade')
+#
+# load_surnames('http://tekeli.li/onomastikon/England-Surnames/Byname.html',
+#               '../seed/england/', '{}-byname')
+#
+# load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Franks.html', 0, 1,
+#                        '../seed/europe/', '{}-medieval-franks-{}')
+#
+# load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Lombards.html', 0, 1,
+#                        '../seed/europe/', '{}-medieval-lombards-{}')
+#
+# load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Goths.html', 0, 1,
+#                        '../seed/europe/', '{}-medieval-goths-{}')
+#
+# load_names('http://tekeli.li/onomastikon/Europe-Medieval/Germany.html',
+#            '../seed/europe/', '{}-medieval-germany-{}')
+#
+# load_names('http://tekeli.li/onomastikon/Europe-Medieval/Italy.html',
+#            '../seed/europe/', '{}-medieval-italy-{}')
+#
+# load_names('http://tekeli.li/onomastikon/Europe-Medieval/France.html',
+#            '../seed/europe/', '{}-medieval-france-{}')
+#
+# load_names('http://tekeli.li/onomastikon/Europe-Western/Germany/Low-German.html',
+#            '../seed/europe/', '{}-low-german-{}')
+#
+# load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Germany/Germanic.html', 0, 1,
+#                                     '../seed/europe/', '{}-germanic-{}')
 
-load_names('http://tekeli.li/onomastikon/England-Saxon/Dithematic.html',
-           '../seed/england/', '{}-medieval-saxon-dithematic-{}')
+load_names('http://tekeli.li/onomastikon/Europe-Western/Switzerland/Firstnames.html',
+           '../seed/europe/', '{}-switzerland-{}')
 
-load_names('http://tekeli.li/onomastikon/England-Saxon/Monothematic.html',
-           '../seed/england/', '{}-medieval-saxon-monothematic-{}')
-
-load_names('http://tekeli.li/onomastikon/England-Medieval/Norse.html',
-           '../seed/england/', '{}-medieval-norse-{}')
-
-load_names('http://tekeli.li/onomastikon/England-Medieval/Saxon.html',
-           '../seed/england/', '{}-medieval-saxon-{}')
-
-load_names('http://tekeli.li/onomastikon/England-Medieval/Rarities.html',
-           '../seed/england/', '{}-medieval-rarities-{}')
-
-load_surnames('http://tekeli.li/onomastikon/England-Surnames/Old-English.html',
-              '../seed/england/', '{}-old-english')
-
-load_surnames('http://tekeli.li/onomastikon/England-Surnames/Tradenames.html',
-              '../seed/england/', '{}-trade')
-
-load_surnames('http://tekeli.li/onomastikon/England-Surnames/Byname.html',
-              '../seed/england/', '{}-byname')
-
-load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Franks.html', 0, 1,
-                       '../seed/europe/', '{}-medieval-franks-{}')
-
-load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Lombards.html', 0, 1,
-                       '../seed/europe/', '{}-medieval-lombards-{}')
-
-load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Goths.html', 0, 1,
-                       '../seed/europe/', '{}-medieval-goths-{}')
-
-load_names('http://tekeli.li/onomastikon/Europe-Medieval/Germany.html',
-           '../seed/europe/', '{}-medieval-germany-{}')
-
-load_names('http://tekeli.li/onomastikon/Europe-Medieval/Italy.html',
-           '../seed/europe/', '{}-medieval-italy-{}')
-
-load_names('http://tekeli.li/onomastikon/Europe-Medieval/France.html',
-           '../seed/europe/', '{}-medieval-france-{}')
-
-load_names('http://tekeli.li/onomastikon/Europe-Western/Germany/Low-German.html',
-           '../seed/europe/', '{}-low-german-{}')
-
-load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Germany/Germanic.html', 0, 1,
-                                    '../seed/europe/', '{}-germanic-{}')
+load_surnames('http://tekeli.li/onomastikon/Europe-Western/Switzerland/Surnames.html',
+              '../seed/europe/', '{}-switzerland')
