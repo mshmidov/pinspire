@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import re
 import itertools
 
@@ -6,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def is_not_empty(s):
+def is_not_empty(s) -> bool:
     return s is not None and not s.isspace() and not s == ''
 
 
@@ -19,6 +20,8 @@ def extract_names(name_tags, filter_function):
 
 
 def write_sorted(names, path, filename):
+    if not os.path.exists(path):
+        os.makedirs(path)
     output = open(file_name(path, filename), 'w')
     for name in sorted(list(set(names))):
         output.write(name + '\n')
@@ -88,6 +91,8 @@ def load_surnames(page, path, filename):
     write_sorted(surnames, path, filename.format('surnames'))
 
 
+# england
+
 load_names('http://tekeli.li/onomastikon/England-Medieval/Norman.html',
            '../seed/england/', '{}-medieval-norman-{}')
 
@@ -115,6 +120,8 @@ load_surnames('http://tekeli.li/onomastikon/England-Surnames/Tradenames.html',
 load_surnames('http://tekeli.li/onomastikon/England-Surnames/Byname.html',
               '../seed/england/', '{}-byname')
 
+# medieval europe
+
 load_names_from_tables('http://tekeli.li/onomastikon/Europe-Medieval/Franks.html', 0, 1,
                        '../seed/europe/', '{}-medieval-franks-{}')
 
@@ -133,17 +140,23 @@ load_names('http://tekeli.li/onomastikon/Europe-Medieval/Italy.html',
 load_names('http://tekeli.li/onomastikon/Europe-Medieval/France.html',
            '../seed/europe/', '{}-medieval-france-{}')
 
+# germany
+
 load_names('http://tekeli.li/onomastikon/Europe-Western/Germany/Low-German.html',
            '../seed/europe/', '{}-low-german-{}')
 
 load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Germany/Germanic.html', 0, 1,
                                     '../seed/europe/', '{}-germanic-{}')
 
+# switzerland
+
 load_names('http://tekeli.li/onomastikon/Europe-Western/Switzerland/Firstnames.html',
            '../seed/europe/', '{}-switzerland-{}')
 
 load_surnames('http://tekeli.li/onomastikon/Europe-Western/Switzerland/Surnames.html',
               '../seed/europe/', '{}-switzerland')
+
+# netherlands
 
 load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Germanic.html', 0, 1,
                                     '../seed/europe/', '{}-netherlands-germanic-{}')
@@ -154,6 +167,8 @@ load_names('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Friesland.ht
 load_surnames('http://tekeli.li/onomastikon/Europe-Western/Netherlands/Surnames.html',
               '../seed/europe/', '{}-netherlands')
 
+# basques
+
 load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Male.html', 0, -1,
                        '../seed/europe/', '{}-basque-{}')
 
@@ -162,3 +177,63 @@ load_names_from_tables('http://tekeli.li/onomastikon/Europe-Western/Basque/Femal
 
 load_surnames('http://tekeli.li/onomastikon/Europe-Western/Basque/Surnames.html',
               '../seed/europe/', '{}-basque')
+
+# spain
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Spain/Germanic.html', 0, 1,
+                                    '../seed/europe/', '{}-spain-germanic-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Western/Spain/Surnames.html',
+              '../seed/europe/', '{}-spain')
+
+# norway
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Norway/Norse.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-norway-norse-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Norway/Germanic.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-norway-germanic-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Norway/Surnames.html',
+              '../seed/scandinavia/', '{}-norway')
+
+# sweden
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Sweden/Norse.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-sweden-norse-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Sweden/Germanic.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-sweden-germanic-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Sweden/Surnames.html',
+              '../seed/scandinavia/', '{}-sweden')
+
+# denmark
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Denmark/Norse.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-denmark-norse-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Denmark/Germanic.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-denmark-germanic-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Denmark/Surnames.html',
+              '../seed/scandinavia/', '{}-denmark')
+
+# faroes
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Faroes/Norse.html', 0, 1,
+                                    '../seed/scandinavia/', '{}-faroes-norse-{}')
+
+load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Scandinavia/Faroes/Norse.html', 2, 3,
+                                    '../seed/scandinavia/', '{}-faroes-germanic-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Faroes/Surnames.html',
+              '../seed/scandinavia/', '{}-faroes')
+
+# finland
+
+load_names('http://tekeli.li/onomastikon/Europe-Scandinavia/Finland/Finnish.html',
+           '../seed/scandinavia/', '{}-finland-finnish-{}')
+
+load_surnames('http://tekeli.li/onomastikon/Europe-Scandinavia/Finland/Surnames.html',
+              '../seed/scandinavia/', '{}-finland')
