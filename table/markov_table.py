@@ -2,10 +2,12 @@ __author__ = 'mshmidov'
 
 from engine.markovchain import MarkovChain
 
+def prepare_line(line):
+    return line.casefold().strip()
 
 class MarkovTable(object):
     def __init__(self, file_names, key_size=2, terminator='%', limit=20,
-                 split_line=lambda line: line.casefold().strip(),
+                 split_line=prepare_line,
                  prettify_result=lambda line: line.capitalize(),
                  backoff=True,
                  exclude_exact_matches=False):
@@ -18,7 +20,7 @@ class MarkovTable(object):
         for name in file_names:
             self.load_corpus(name, split_line)
 
-    def load_corpus(self, file_name, line_to_elements):
+    def load_corpus(self, file_name, line_to_elements=prepare_line):
         file = open(file_name)
 
         for line in file:

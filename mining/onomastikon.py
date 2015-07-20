@@ -98,7 +98,6 @@ def load_surnames(page, path, filename):
 
     write_sorted(surnames, path, filename.format('surnames'))
 
-
 # england
 
 load_names('http://tekeli.li/onomastikon/England-Medieval/Norman.html',
