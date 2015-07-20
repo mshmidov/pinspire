@@ -156,6 +156,9 @@ load_names('http://tekeli.li/onomastikon/Europe-Western/Germany/Low-German.html'
 load_names_from_table_first_columns('http://tekeli.li/onomastikon/Europe-Western/Germany/Germanic.html', 0, 1,
                                     '../seed/europe/', '{}-germanic-{}')
 
+load_surnames('http://tekeli.li/onomastikon/Europe-Western/Germany/Surnames.html',
+              '../seed/europe/', '{}-germany')
+
 # switzerland
 
 load_names('http://tekeli.li/onomastikon/Europe-Western/Switzerland/Firstnames.html',
