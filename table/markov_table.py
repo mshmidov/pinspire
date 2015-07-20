@@ -6,14 +6,14 @@ def prepare_line(line):
     return line.casefold().strip()
 
 class MarkovTable(object):
-    def __init__(self, file_names, key_size=2, terminator='%', limit=20,
+    def __init__(self, file_names, key_size=2, limit=20,
                  split_line=prepare_line,
                  prettify_result=lambda line: line.capitalize(),
                  backoff=True,
                  exclude_exact_matches=False):
         self.limit = limit
         self.prettify = prettify_result
-        self.chain = MarkovChain(key_size, terminator, backoff)
+        self.chain = MarkovChain(key_size=key_size, backoff=backoff)
         self.dict = []
         self.exclude_exact_matches = exclude_exact_matches
 
