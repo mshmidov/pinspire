@@ -14,7 +14,7 @@ def prepare_and_transliterate(line):
 
 NAME_M_RU = MarkovTable(['seed/russia/names-slavic-m.txt'],
                         key_size=3, exclude_exact_matches=True,
-                        prettify_result=lambda line: line.title())
+                        prettify_result=lambda line: line.title(), backoff=False)
 
 NAME_M_RU.load_corpus('seed/russia/names-russia-latin-m.txt')
 

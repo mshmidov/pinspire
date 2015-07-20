@@ -24,7 +24,7 @@ class MarkovChain(object):
         elements = list(itertools.chain([self._start_marker], elements, [self._end_marker]))
 
         for i in range(len(elements) - key_size):
-            self.put(tuple(elements[i:i + key_size]), elements[i + key_size])
+            self.put(elements[i:i + key_size], elements[i + key_size])
 
     def put(self, key, next_element, start=False):
 
@@ -36,7 +36,7 @@ class MarkovChain(object):
 
         self._elements.setdefault(key, []).append(next_element)
 
-        if str(key).startswith(self._start_marker):
+        if key[0] == self._start_marker:
             self._keys.append(key)
 
     def random_key(self) -> str:
