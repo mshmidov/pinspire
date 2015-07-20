@@ -3,7 +3,7 @@ import itertools
 
 
 class MarkovChain(object):
-    def __init__(self, key_size=3, start_marker='<', end_marker='>', backoff=False):
+    def __init__(self, key_size=3, start_marker='<<<', end_marker='>>>'):
         if key_size < 1:
             raise ValueError("key size cannot be less than 1 element")
 
@@ -12,24 +12,20 @@ class MarkovChain(object):
         self._end_marker = end_marker
         self._elements = {}
         self._keys = []
-        self._lower_order_chain = \
-            MarkovChain(key_size - 1, start_marker, end_marker, True) if backoff and key_size > 1 else None
 
     def populate(self, elements):
-        if self._lower_order_chain is not None:
-            self._lower_order_chain.populate(elements)
 
         key_size = self._key_size
 
         elements = list(itertools.chain([self._start_marker], elements, [self._end_marker]))
 
         for i in range(len(elements) - key_size):
-            self.put(elements[i:i + key_size], elements[i + key_size])
+            self.put(tuple(elements[i:i + key_size]), elements[i + key_size])
 
-    def put(self, key, next_element, start=False):
+    def put(self, key: tuple, next_element):
 
         if not len(key) == self._key_size:
-            raise ValueError("Key for this chain should contain {} elements" % self._key_size)
+            raise ValueError("Key for this chain should contain {} elements".format(self._key_size))
 
         if next_element is None:
             raise ValueError("Element cannot be None")
@@ -45,14 +41,13 @@ class MarkovChain(object):
     def next_element(self, key) -> str:
         if key in self._elements:
             return random.choice(self._elements[key])
-        elif self._lower_order_chain is not None:
-            return self._lower_order_chain.next_element(key)
         else:
+            print("[WARN] Chain exhausted")
             return self._end_marker
 
     def elements(self, key=None, limit=10):
         key = self.random_key() if key is None else key
-        if not key.startswith(self._start_marker):
+        if not key[0] == self._start_marker:
             key = self._start_marker + key
 
         for element in key:

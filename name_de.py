@@ -8,15 +8,21 @@ from table.markov_table import MarkovTable
 NAME_M_DE = MarkovTable(['seed/europe/names-germanic-m.txt',
                          'seed/europe/names-low-german-m.txt',
                          'seed/europe/names-medieval-germany-m.txt'],
-                        key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True, limit=10)
+                        key_size=3,
+                        exclude_exact_matches=True,
+                        prettify_result=lambda line: line.title())
 
 NAME_F_DE = MarkovTable(['seed/europe/names-germanic-f.txt',
                          'seed/europe/names-low-german-f.txt',
                          'seed/europe/names-medieval-germany-f.txt'],
-                        key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True, limit=10)
+                        key_size=3,
+                        exclude_exact_matches=True,
+                        prettify_result=lambda line: line.title())
 
 SURNAME_DE = MarkovTable(['seed/europe/surnames-germany.txt'],
-                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
+                         key_size=3,
+                         exclude_exact_matches=True,
+                         prettify_result=lambda line: line.title())
 
 
 def german_name(male=True):

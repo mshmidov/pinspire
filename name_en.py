@@ -5,20 +5,23 @@ __author__ = 'mshmidov'
 
 from table.markov_table import MarkovTable
 
-NAME_M_EN = MarkovTable(['seed/england/medieval-norman-m.txt',
-                         'seed/england/medieval-norse-m.txt',
-                         'seed/england/medieval-rarities-m.txt'],
-                        key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True, limit=10)
+NAME_M_EN = MarkovTable(['seed/england/names-medieval-norman-m.txt',
+                         'seed/england/names-medieval-norse-m.txt',
+                         'seed/england/names-medieval-rarities-m.txt'],
+                        key_size=3,
+                        exclude_exact_matches=True)
 
-NAME_F_EN = MarkovTable(['seed/england/medieval-norman-f.txt',
-                         'seed/england/medieval-norse-f.txt',
-                         'seed/england/medieval-rarities-f.txt'],
-                        key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True, limit=10)
+NAME_F_EN = MarkovTable(['seed/england/names-medieval-norman-f.txt',
+                         'seed/england/names-medieval-norse-f.txt',
+                         'seed/england/names-medieval-rarities-f.txt'],
+                        key_size=3,
+                        exclude_exact_matches=True)
 
-SURNAME_EN = MarkovTable(['seed/england/old-english-surnames.txt',
-                          'seed/england/trade-surnames.txt',
-                          'seed/england/byname-surnames.txt'],
-                         key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
+SURNAME_EN = MarkovTable(['seed/england/surnames-old-english.txt',
+                          'seed/england/surnames-trade.txt',
+                          'seed/england/surnames-byname.txt'],
+                         key_size=3,
+                         exclude_exact_matches=True)
 
 
 def english_name(male=True):
