@@ -1,33 +1,30 @@
 #!/usr/bin/env python3
-import sys
 
 __author__ = 'mshmidov'
+import sys
 
-from table.markov_table import MarkovTable
+from table.markovchain import MarkovChain, ExcludeSourceElements
 
-NAME_M_EN = MarkovTable(['seed/england/names-medieval-norman-m.txt',
-                         'seed/england/names-medieval-norse-m.txt',
-                         'seed/england/names-medieval-rarities-m.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True)
+NAME_M_EN = ExcludeSourceElements(MarkovChain())
+NAME_M_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-norman-m.txt'))
+NAME_M_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-norse-m.txt'))
+NAME_M_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-rarities-m.txt'))
 
-NAME_F_EN = MarkovTable(['seed/england/names-medieval-norman-f.txt',
-                         'seed/england/names-medieval-norse-f.txt',
-                         'seed/england/names-medieval-rarities-f.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True)
+NAME_F_EN = ExcludeSourceElements(MarkovChain())
+NAME_F_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-norman-f.txt'))
+NAME_F_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-norse-f.txt'))
+NAME_F_EN.populate_from(line.casefold().strip() for line in open('seed/england/names-medieval-rarities-f.txt'))
 
-SURNAME_EN = MarkovTable(['seed/england/surnames-old-english.txt',
-                          'seed/england/surnames-trade.txt',
-                          'seed/england/surnames-byname.txt'],
-                         key_size=3,
-                         exclude_exact_matches=True)
+SURNAME_EN = ExcludeSourceElements(MarkovChain())
+SURNAME_EN.populate_from(line.casefold().strip() for line in open('seed/england/surnames-old-english.txt'))
+SURNAME_EN.populate_from(line.casefold().strip() for line in open('seed/england/surnames-trade.txt'))
+SURNAME_EN.populate_from(line.casefold().strip() for line in open('seed/england/surnames-byname.txt'))
 
 
 def english_name(male=True):
     name_chain = NAME_M_EN if male else NAME_F_EN
 
-    name = [name_chain.roll(), SURNAME_EN.roll()]
+    name = [name_chain.sequence().title(), SURNAME_EN.sequence().title()]
 
     return " ".join(name)
 

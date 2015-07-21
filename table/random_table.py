@@ -3,7 +3,6 @@ import sys
 
 
 class Row(object):
-
     def __init__(self, a, b=None, v=None):
 
         if (a is not None) and (b is not None) and (v is not None):
@@ -30,7 +29,6 @@ class Row(object):
 
 
 class RandomTable(object):
-
     def __init__(self, *rows):
 
         self._rows = {}
@@ -62,4 +60,3 @@ class RandomTable(object):
         index = random.randrange(self._lowerChance, self._upperChance + 1)
         row = self._rows[index]
         return row.value
-

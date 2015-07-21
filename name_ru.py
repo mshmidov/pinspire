@@ -1,36 +1,22 @@
 #!/usr/bin/env python3
+__author__ = 'mshmidov'
 import sys
 
-from transliterate import translit
+from table.markovchain import MarkovChain, ExcludeSourceElements
 
-__author__ = 'mshmidov'
+NAME_M_RU = ExcludeSourceElements(MarkovChain())
+NAME_M_RU.populate_from(line.casefold().strip() for line in open('seed/russia/names-slavic-m.txt'))
+NAME_M_RU.populate_from(line.casefold().strip() for line in open('seed/russia/names-russia-latin-m.txt'))
 
-from table.markov_table import MarkovTable, prepare_line
-
-
-def prepare_and_transliterate(line):
-    return translit(prepare_line(line), 'ru', reversed=True)
-
-
-NAME_M_RU = MarkovTable(['seed/russia/names-slavic-m.txt',
-                         'seed/russia/names-russia-latin-m.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True)
-
-NAME_F_RU = MarkovTable(['seed/russia/names-slavic-f.txt',
-                         'seed/russia/names-russia-latin-f.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True)
-
-
-# SURNAME_RU = MarkovTable(['seed/europe/surnames-germany.txt'],
-#                          key_size=3, prettify_result=lambda line: line.title(), exclude_exact_matches=True)
+NAME_F_RU = ExcludeSourceElements(MarkovChain())
+NAME_F_RU.populate_from(line.casefold().strip() for line in open('seed/russia/names-slavic-f.txt'))
+NAME_F_RU.populate_from(line.casefold().strip() for line in open('seed/russia/names-russia-latin-f.txt'))
 
 
 def russian_name(male=True):
     name_chain = NAME_M_RU if male else NAME_F_RU
 
-    name = [name_chain.roll()]
+    name = [name_chain.sequence().title()]
 
     return " ".join(name)
 

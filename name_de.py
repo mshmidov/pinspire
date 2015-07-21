@@ -1,34 +1,29 @@
 #!/usr/bin/env python3
+__author__ = 'mshmidov'
 import sys
 
-__author__ = 'mshmidov'
 
-from table.markov_table import MarkovTable
+from table.markovchain import MarkovChain, ExcludeSourceElements
 
-NAME_M_DE = MarkovTable(['seed/europe/names-germanic-m.txt',
-                         'seed/europe/names-low-german-m.txt',
-                         'seed/europe/names-medieval-germany-m.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True,
-                        prettify_result=lambda line: line.title())
+NAME_M_DE = ExcludeSourceElements(MarkovChain())
+NAME_M_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-germanic-m.txt'))
+NAME_M_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-low-german-m.txt'))
+NAME_M_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-medieval-germany-m.txt'))
 
-NAME_F_DE = MarkovTable(['seed/europe/names-germanic-f.txt',
-                         'seed/europe/names-low-german-f.txt',
-                         'seed/europe/names-medieval-germany-f.txt'],
-                        key_size=3,
-                        exclude_exact_matches=True,
-                        prettify_result=lambda line: line.title())
 
-SURNAME_DE = MarkovTable(['seed/europe/surnames-germany.txt'],
-                         key_size=3,
-                         exclude_exact_matches=True,
-                         prettify_result=lambda line: line.title())
+NAME_F_DE = ExcludeSourceElements(MarkovChain())
+NAME_F_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-germanic-f.txt'))
+NAME_F_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-low-german-f.txt'))
+NAME_F_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-medieval-germany-f.txt'))
+
+SURNAME_DE = ExcludeSourceElements(MarkovChain())
+SURNAME_DE.populate_from(line.casefold().strip() for line in open('seed/europe/surnames-germany.txt'))
 
 
 def german_name(male=True):
     name_chain = NAME_M_DE if male else NAME_F_DE
 
-    name = [name_chain.roll(), SURNAME_DE.roll()]
+    name = [name_chain.sequence().title(), SURNAME_DE.sequence().title()]
 
     return " ".join(name)
 

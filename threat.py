@@ -5,7 +5,6 @@
 
 from table.random_table import RandomTable
 
-
 SPEED = RandomTable(
     "slow",
     "fast")
