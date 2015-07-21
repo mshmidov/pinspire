@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from table.markovchain import MarkovChain, ExcludeSourceElements
+from engine.markovchain import MarkovChain, ExcludeSourceElements
 
 __author__ = 'mshmidov'
 

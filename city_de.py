@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 __author__ = 'mshmidov'
 
-from table.markovchain import MarkovChain, ExcludeSourceElements
+from engine.markovchain import MarkovChain, ExcludeSourceElements
 
 CITY_DE = ExcludeSourceElements(MarkovChain())
 CITY_DE.populate_from(line.casefold().strip() for line in open('seed/city_de.txt'))

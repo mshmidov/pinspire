@@ -3,7 +3,7 @@
 # Random generator based on 'Non-Mechanical Difficulty Levels for Monstrous Threats'
 # from http://blog.trilemma.com/2014/10/non-mechanical-difficulty-levels-for.html
 
-from table.random_table import RandomTable
+from engine.random_table import RandomTable
 
 SPEED = RandomTable(
     "slow",

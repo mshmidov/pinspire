@@ -3,7 +3,7 @@ __author__ = 'mshmidov'
 import sys
 
 
-from table.markovchain import MarkovChain, ExcludeSourceElements
+from engine.markovchain import MarkovChain, ExcludeSourceElements
 
 NAME_M_DE = ExcludeSourceElements(MarkovChain())
 NAME_M_DE.populate_from(line.casefold().strip() for line in open('seed/europe/names-germanic-m.txt'))
