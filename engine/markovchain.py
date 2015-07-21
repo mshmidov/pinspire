@@ -111,3 +111,38 @@ class ExcludeSourceElements(object):
             result = ''.join(self.chain.sequence(start_with=start_with, limit=limit))
             if result not in self.dict:
                 return result
+
+
+class FilterByPredicate(object):
+    """
+    Wrapper to MarkovChain.
+    Returns only items for which supplied predicate returns True
+    """
+
+    def __init__(self, chain: MarkovChain, predicate):
+        self.chain = chain
+        self.predicate = predicate
+
+    def populate(self, elements: list):
+        self.chain.populate(elements)
+        return self
+
+    def populate_from(self, lots_of_elements):
+        self.chain.populate_from(lots_of_elements)
+        return self
+
+    def generate(self, start_with: tuple=None, limit=20):
+        """
+           Returns an iterable for elements produced with this chain
+           """
+        return iter(self.sequence(start_with, limit))
+
+    def sequence(self, start_with: tuple=None, limit=20) -> str:
+        """
+        Returns a string joined from elements produced with this chain
+        """
+
+        while True:
+            result = ''.join(self.chain.sequence(start_with=start_with, limit=limit))
+            if self.predicate(result):
+                return result
