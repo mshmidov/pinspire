@@ -79,7 +79,7 @@ class ExcludeSourceElements(object):
     Ensures that generated sequence will not be equal to any of elements used to populate a chain
     """
 
-    def __init__(self, chain: MarkovChain):
+    def __init__(self, chain):
         self.chain = chain
         self.dict = set()
 
@@ -119,7 +119,7 @@ class FilterByPredicate(object):
     Returns only items for which supplied predicate returns True
     """
 
-    def __init__(self, chain: MarkovChain, predicate):
+    def __init__(self, chain, predicate):
         self.chain = chain
         self.predicate = predicate
 

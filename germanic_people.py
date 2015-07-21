@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from engine.util import most_popular
+from engine.util import name_generator_by_argparse
 
 __author__ = 'mshmidov'
 
@@ -10,6 +10,5 @@ GERMANIC_PEOPLE = FilterByPredicate(ExcludeSourceElements(MarkovChain()), lambda
 GERMANIC_PEOPLE.populate_from(line.casefold().strip() for line in open('seed/germanic_people.txt'))
 
 if __name__ == '__main__':
+    name_generator_by_argparse({'people': lambda: GERMANIC_PEOPLE.sequence().title()})
 
-    for people, count in most_popular(lambda: GERMANIC_PEOPLE.sequence().title(), count=70, runs=100000):
-        print("{}: {}".format(people, count))
