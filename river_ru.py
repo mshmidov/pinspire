@@ -7,4 +7,4 @@ RIVER_RU = FilterByPredicate(ExcludeSourceElements(MarkovChain()), lambda s: len
 RIVER_RU.populate_from(line.casefold().strip() for line in open('seed/rivers/river_ru.txt'))
 
 if __name__ == '__main__':
-    name_generator_by_argparse({'city': lambda: RIVER_RU.sequence().title()})
+    name_generator_by_argparse({'river': lambda: RIVER_RU.sequence().title()})
