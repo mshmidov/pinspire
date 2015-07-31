@@ -5,6 +5,7 @@ from engine.markovchain import MarkovChain, ExcludeSourceElements, FilterByPredi
 
 CITY_RU = FilterByPredicate(ExcludeSourceElements(MarkovChain()), lambda s: len(s) > 3)
 CITY_RU.populate_from(line.casefold().strip() for line in open('seed/cities/city_ru.txt'))
+CITY_RU.populate_from(line.casefold().strip() for line in open('seed/cities/city_gp.txt'))
 
 if __name__ == '__main__':
     name_generator_by_argparse({'city': lambda: CITY_RU.sequence().title()})
