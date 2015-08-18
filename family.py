@@ -46,6 +46,8 @@ class PersonGenerator(object):
         self.female_names = RandomTable(*[line.strip().title() for line in open(female_names)])
 
     def person(self, male, born=-17):
+        if male is None:
+            male = random.choice([True, False])
         return Person(male, self.new_name(male), self.surnames.roll(), None, None, born=born)
 
     def new_name(self, male):
@@ -53,7 +55,7 @@ class PersonGenerator(object):
 
     def child(self, father, mother, born):
         male = random.choice([True, False])
-        return Person(True, self.new_name(male), father.surname, father, mother, born=born)
+        return Person(male, self.new_name(male), father.surname, father, mother, born=born)
 
 
 class LifeEventProbability(object):
@@ -83,8 +85,9 @@ class LifeEventProbability(object):
 class Life(object):
     def __init__(self):
         self.persons = set()
-        self.death_chance = LifeEventProbability(5).put(0, [30, 20, 15, 10]).put(24, range(5, 101))
+        self.death_chance = LifeEventProbability(3).put(0, [20, 10, 5]).put(22, range(3, 101))
         self.marriage_chance = LifeEventProbability().add(range(16, 24), 20).add(range(24, 40), 5)
+        self.birth_chance = LifeEventProbability().add(range(16, 25), 40).add(range(25, 30), 30).add(range(30, 40), 10)
 
     def add_person(self, person: Person):
         self.persons.add(person)
@@ -99,36 +102,52 @@ class Life(object):
 
 
 def generate():
-    person_generator = PersonGenerator('data/omorje/surname_noble.txt', 'data/omorje/name_m.txt',
+    person_generator = PersonGenerator('data/omorje/surname_noble.txt',
+                                       'data/omorje/name_m.txt',
                                        'data/omorje/name_f.txt')
 
     life = Life()
-    man = person_generator.person(True)
-    # woman = person_generator.person(False)
-    # man.marry(woman)
 
-    life.add_person(man)
+    for _ in range(50):
+        life.add_person(person_generator.person(None, random.randrange(-60, -12)))
     # life.add_person(woman)
 
-    for year in range(0, 300):
+    for year in range(0, 20):
         print("year {}".format(year))
 
+        children = set()
+
         for person in life.persons.copy():
+
             if not person.dead:
 
                 age = year - person.born
+
                 # check for marriage
                 if person.spouse is None and life.marriage_chance.check(age):
                     spouse = life.add_person(person_generator.person(not person.male, year - 17))
-                    person.marry(spouse)
                     print("{} marries {}".format(person, spouse))
+                    person.marry(spouse)
 
                 # check for birth
+                if not person.male and person.spouse is not None and life.birth_chance.check(age):
+                    child = person_generator.child(person.spouse, person, year)
+                    children.add(child)
+                    print("{} is born of {} and {}".format(child, person.spouse, person))
+                    if life.death_chance.check(0):
+                        children.remove(child)
+                        print("{} dies at {}".format(child, 0))
 
                 # check for death
                 if life.death_chance.check(age):
                     life.kill_person(person)
                     print("{} dies at {}".format(person, age))
+
+        for child in children:
+            life.add_person(child)
+
+        print("{} living persons".format(len([person for person in life.persons if not person.dead])))
+        print("{} dead persons".format(len([person for person in life.persons if person.dead])))
 
 
 if __name__ == '__main__':
